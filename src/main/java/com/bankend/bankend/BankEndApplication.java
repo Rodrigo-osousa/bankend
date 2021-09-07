@@ -1,0 +1,13 @@
+package com.bankend.bankend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BankEndApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BankEndApplication.class, args);
+	}
+
+}
