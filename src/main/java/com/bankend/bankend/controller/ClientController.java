@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RestController
@@ -17,7 +18,7 @@ public class ClientController {
     @PostMapping("/new")
     @ResponseBody
     public Client creatClient(@Valid Client client) {
-    return clientService.createClient(client);
+        return clientService.createClient(client);
     }
 
     @GetMapping("/list")
@@ -25,8 +26,13 @@ public class ClientController {
         return clientService.obtainClient();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Client> obtainClienteId(@PathVariable int id) {
+        return clientService.obtainClientId(id);
+    }
+
     @PutMapping("/update")
-    public Client updateClient(@Valid Client client){
+    public Client updateClient(@Valid Client client) {
         return clientService.updateClient(client);
     }
 

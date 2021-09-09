@@ -30,6 +30,7 @@ public class ClientService {
     public Optional<Client> obtainClientId(int id) {
         return clientRepository.findById(id);
     }
+
     public void deleteClient(int id) {
         clientRepository.deleteById(id);
     }
