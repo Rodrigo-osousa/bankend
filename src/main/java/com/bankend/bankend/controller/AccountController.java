@@ -5,12 +5,10 @@ import com.bankend.bankend.entity.model.Account;
 import com.bankend.bankend.repository.AccountRepository;
 import com.bankend.bankend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -21,10 +19,28 @@ public class AccountController {
 
     @PostMapping("/new")
     @ResponseBody
-    public Account createAcount(@Valid Account account){
+    public Account createAccount(@Valid Account account) {
         return accountService.createAccount(account);
+
     }
 
+    @GetMapping("/{id")
+    public Optional<Account> obtainAccountID(@PathVariable int id){
+        return accountService.obtainAccountId(id);
+    }
 
+    @PutMapping("/update")
+    public Account updateAccount(@Valid Account account) {
+        return accountService.updateAccount(account);
+    }
+    @DeleteMapping(path = "/{id}")
+    public void deleteAccount(@PathVariable int id){
+        accountService.deleteAccount(id);
+    }
+
+    @GetMapping("/list")
+    public Iterable<Account> obtainAccount() {
+        return accountService.obtainAccount();
+    }
 
 }

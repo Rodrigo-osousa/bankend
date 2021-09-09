@@ -1,10 +1,7 @@
 package com.bankend.bankend.entity.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 
@@ -21,6 +18,9 @@ public class Account {
     private int credit;
 
     private Boolean inactive;
+
+    @OneToOne
+    private Account account;
 
     public Account(){
 
@@ -72,5 +72,13 @@ public class Account {
 
     public void setInactive(Boolean inactive) {
         this.inactive = inactive;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

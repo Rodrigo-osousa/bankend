@@ -1,9 +1,6 @@
 package com.bankend.bankend.entity.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Client {
@@ -18,7 +15,10 @@ public class Client {
 
     private String address;
 
-    public Client(){
+    @OneToOne
+    private Account account;
+
+    public Client() {
 
     }
 
@@ -63,4 +63,11 @@ public class Client {
         this.address = address;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }
