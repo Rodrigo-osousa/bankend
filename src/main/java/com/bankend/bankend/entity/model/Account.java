@@ -20,15 +20,18 @@ public class Account {
 
     private int credit;
 
+    private Boolean inactive;
+
     public Account(){
 
     }
 
-    public Account(int idAccount, int agency, int balance, int credit) {
+    public Account(int idAccount, int agency, int balance, int credit, Boolean inactive) {
         this.idAccount = idAccount;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
+        this.inactive = inactive;
     }
 
     public int getIdAccount() {
@@ -61,5 +64,13 @@ public class Account {
 
     public void setCredit(int credit) {
         this.credit = credit;
+    }
+
+    public Boolean getInactive() {
+        return inactive;
+    }
+
+    public void setInactive(Boolean inactive) {
+        this.inactive = inactive;
     }
 }

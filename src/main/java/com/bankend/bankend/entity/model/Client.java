@@ -16,16 +16,18 @@ public class Client {
 
     private double document;
 
+    private String address;
 
     public Client(){
 
     }
 
-    public Client(int id, String name, double document) {
+    public Client(int id, String name, double document, String address) {
         super();
         this.id = id;
         this.name = name;
         this.document = document;
+        this.address = address;
 
     }
 
@@ -51,6 +53,14 @@ public class Client {
 
     public void setDocument(double document) {
         this.document = document;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }
