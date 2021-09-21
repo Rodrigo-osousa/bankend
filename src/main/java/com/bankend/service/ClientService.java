@@ -1,6 +1,7 @@
 package com.bankend.service;
 
 import com.bankend.model.entity.Client;
+import com.bankend.model.entity.request.ClientRequest;
 import com.bankend.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,14 +40,18 @@ public class ClientService {
         return clientReturn;
     }
 
-    public void createClient(Client client) throws Exception {
+    public void createClient(ClientRequest clientRequest) throws Exception {
         logger.info("Mensagem do properties: " + message);
-        logger.info("=========> Crindo cliente: " + client.toString());
-        boolean clientExist = verifyIfExists(client.getDocumentNumber());
+        logger.info("=========> Crindo cliente: " + clientRequest.toString());
+        boolean clientExist = verifyIfExists(clientRequest.getDocumentNumber());
         if (clientExist) {
             logger.info("Erro ao tentar cadastrar cliente já existente");
             throw new Exception();
         }
+        Client client = new Client();
+        client.setAddress(clientRequest.getAddress());
+        client.setDocumentNumber(clientRequest.getDocumentNumber());
+        client.setName(clientRequest.getName());
         clientRepository.save(client);
         logger.info("Cliente salvo com sucesso: " + client.getDocumentNumber());
     }

@@ -1,8 +1,10 @@
 package com.bankend.controller;
 
 import com.bankend.model.entity.Client;
+import com.bankend.model.entity.request.ClientRequest;
 import com.bankend.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,10 +17,11 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
+    @Validated
     @PostMapping("/new")
-    public void createClient(@RequestBody @Valid Client client) throws Exception {
+    public void createClient (@Valid @RequestBody ClientRequest clientRequest) throws Exception {
+        clientService.createClient(clientRequest);
 
-        clientService.createClient(client);
     }
 
     @GetMapping("/list")

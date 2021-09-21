@@ -1,41 +1,28 @@
-package com.bankend.model.entity;
+package com.bankend.model.entity.request;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-@Entity
-public class Client {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class ClientRequest {
+    
+    @NotBlank(message =  "Name cannot be blank")
     private String name;
-
+    
+    @NotBlank(message = "Address cannot be blank")
     private String address;
 
-    @Column(name = "document_number")
+    @NotBlank(message = "Document Number cannot be blank")
+    @Size(max=12, min=9, message = "Número do documento deve estar entre 9 a 12 dígitos")
     private String documentNumber;
 
-
-
-    public Client() {
+    public ClientRequest() {
 
     }
 
-    public Client(int id, String name, String address, String documentNumber) {
-        super();
-        this.id = id;
+    public ClientRequest(String name, String address, String documentNumber) {
         this.name = name;
         this.address = address;
         this.documentNumber = documentNumber;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -64,12 +51,10 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
+        return "{" +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
+                ", adress='" + address + '\'' +
                 ", documentNumber='" + documentNumber + '\'' +
                 '}';
     }
 }
-

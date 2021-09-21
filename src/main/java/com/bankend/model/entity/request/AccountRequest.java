@@ -1,22 +1,26 @@
 package com.bankend.model.entity.request;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
 public class AccountRequest {
 
-    @NotBlank
+    @NotNull(message = "Acgency cannot be null")
+    @Max(value = 9999,message = "Agency cannot be greater than 4")
     private int agency;
 
-    @NotBlank
+    @NotNull(message = "Balance cannot be less than 0")
+    @Min(0)
     private Double balance;
 
-    @NotBlank
+    @NotNull(message = "Credit cannot be null")
+    @Min(value = 0, message = "Credit cannot be lass than 0")
     private Double credit;
 
-    @NotBlank
+    @NotNull(message = "Inactive cannot be null")
     private Boolean inactive;
 
-    @NotBlank
+    @NotBlank(message = "Document Number cannot be blank")
+    @Size(min = 9, max = 12, message = "Document Number cannot be lass than 9 and more than 12")
     private String documentNumber;
 
     public AccountRequest(){
