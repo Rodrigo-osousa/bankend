@@ -1,10 +1,9 @@
-package com.bankend.bankend.entity.model;
+package com.bankend.model.entity;
 
 
 import javax.persistence.*;
 
 @Entity
-
 public class Account {
 
     @Id
@@ -13,25 +12,28 @@ public class Account {
 
     private int agency;
 
-    private int balance;
+    private Double balance;
 
-    private int credit;
+    private Double credit;
 
     private Boolean inactive;
 
     @OneToOne
-    private Account account;
+    private Client client;
+
+
 
     public Account(){
 
     }
 
-    public Account(int idAccount, int agency, int balance, int credit, Boolean inactive) {
+    public Account(int idAccount, int agency, Double balance, Double credit, Boolean inactive, Client client) {
         this.idAccount = idAccount;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
         this.inactive = inactive;
+        this.client = client;
     }
 
     public int getIdAccount() {
@@ -50,19 +52,19 @@ public class Account {
         this.agency = agency;
     }
 
-    public int getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public int getCredit() {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 
@@ -74,11 +76,23 @@ public class Account {
         this.inactive = inactive;
     }
 
-    public Account getAccount() {
-        return account;
+    public Client getClient() {
+        return client;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "idAccount=" + idAccount +
+                ", agency=" + agency +
+                ", balance=" + balance +
+                ", credit=" + credit +
+                ", inactive=" + inactive +
+                ", client=" + client +
+                '}';
     }
 }

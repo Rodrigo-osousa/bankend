@@ -1,8 +1,9 @@
-package com.bankend.bankend.controller;
+package com.bankend.controller;
 
 
-import com.bankend.bankend.entity.model.Account;
-import com.bankend.bankend.service.AccountService;
+import com.bankend.model.entity.Account;
+import com.bankend.model.entity.request.AccountRequest;
+import com.bankend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class AccountController {
 
     @PostMapping("/new")
     @ResponseBody
-    public Account createAccount(@Valid Account account) {
-        return accountService.createAccount(account);
+    public AccountRequest createAccount(@Valid @RequestBody AccountRequest accountRequest) throws Exception {
+        return accountService.createAccount(accountRequest);
 
     }
 

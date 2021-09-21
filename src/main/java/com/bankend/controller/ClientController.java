@@ -1,7 +1,7 @@
-package com.bankend.bankend.controller;
+package com.bankend.controller;
 
-import com.bankend.bankend.entity.model.Client;
-import com.bankend.bankend.service.ClientService;
+import com.bankend.model.entity.Client;
+import com.bankend.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +16,9 @@ public class ClientController {
     ClientService clientService;
 
     @PostMapping("/new")
-    @ResponseBody
-    public Client creatClient(@Valid Client client) {
-        return clientService.createClient(client);
+    public void createClient(@RequestBody @Valid Client client) throws Exception {
+
+        clientService.createClient(client);
     }
 
     @GetMapping("/list")
@@ -27,7 +27,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> obtainClienteId(@PathVariable int id) {
+    public Optional<Client> obtainClienteId(@PathVariable int id) throws Exception {
         return clientService.obtainClientId(id);
     }
 

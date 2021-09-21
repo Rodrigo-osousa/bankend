@@ -1,4 +1,4 @@
-package com.bankend.bankend.entity.model;
+package com.bankend.model.entity;
 
 import javax.persistence.*;
 
@@ -11,24 +11,23 @@ public class Client {
 
     private String name;
 
-    private double document;
-
     private String address;
 
-    @OneToOne
-    private Account account;
+    @Column(name = "document_number")
+    private String documentNumber;
+
+
 
     public Client() {
 
     }
 
-    public Client(int id, String name, double document, String address) {
+    public Client(int id, String name, String address, String documentNumber) {
         super();
         this.id = id;
         this.name = name;
-        this.document = document;
         this.address = address;
-
+        this.documentNumber = documentNumber;
     }
 
     public int getId() {
@@ -47,14 +46,6 @@ public class Client {
         this.name = name;
     }
 
-    public double getDocument() {
-        return document;
-    }
-
-    public void setDocument(double document) {
-        this.document = document;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -63,11 +54,22 @@ public class Client {
         this.address = address;
     }
 
-    public Account getAccount() {
-        return account;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                '}';
     }
 }
+
