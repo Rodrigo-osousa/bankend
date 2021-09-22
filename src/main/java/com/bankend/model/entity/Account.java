@@ -21,8 +21,6 @@ public class Account {
     @OneToOne
     private Client client;
 
-
-
     public Account(){
 
     }

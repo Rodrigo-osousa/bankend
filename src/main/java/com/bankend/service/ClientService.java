@@ -2,6 +2,7 @@ package com.bankend.service;
 
 import com.bankend.model.entity.Client;
 import com.bankend.model.entity.request.ClientRequest;
+import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,9 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     public Client updateClient(Client client) {
         clientRepository.save(client);
@@ -60,7 +64,6 @@ public class ClientService {
         Optional<Client> clientFromDatabase = clientRepository.findByDocumentNumber(documentNumber);
         return clientFromDatabase.isPresent();
     }
-
 
     public void deleteClient(int id) {
         clientRepository.deleteById(id);

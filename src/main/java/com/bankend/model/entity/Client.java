@@ -16,30 +16,15 @@ public class Client {
     @Column(name = "document_number")
     private String documentNumber;
 
-    @OneToOne
-    private Account account;
-
-
-
     public Client() {
 
     }
 
-    public Client(int id, String name, String address, String documentNumber, Account account) {
-        super();
+    public Client(int id, String name, String address, String documentNumber) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.documentNumber = documentNumber;
-        this.account = account;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public int getId() {
@@ -76,7 +61,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
