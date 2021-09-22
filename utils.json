@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "2fa17d26-e752-4187-930f-ab9eade9da53",
+		"name": "bankend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "bankend create cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Teste\",\n    \"adress\" : \"Never Land\",\n    \"documentNumber\": \"1234567890001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/client/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/client/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar contas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/account/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar contas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agency\": 1,\n    \"balance\": 3.500,\n    \"credit\": 1,\n    \"inactive\": false,\n    \"documentNumber\": \"1114567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/account/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
