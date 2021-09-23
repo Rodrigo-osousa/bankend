@@ -24,6 +24,7 @@ public class AccountService {
     @Autowired
     private ClientRepository clientRepository;
 
+
     public AccountRequest createAccount(AccountRequest accountRequest) throws Exception {
         logger.info("createAccount: " + accountRequest.toString());
         // valida
