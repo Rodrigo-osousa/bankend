@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface AccountRepository extends CrudRepository <Account, Integer> {
     Optional<Account> findByClientId(int id);
-
 }

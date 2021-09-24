@@ -51,11 +51,11 @@ public class AccountService {
         return account;
     }
 
-    public Iterable<Account> obtainAccount() {
+    public Iterable<Account> searchAllAccounts() {
         return accountRepository.findAll();
     }
 
-    public Optional<Account> obtainAccountId(int id) {
+    public Optional<Account> searchAccountById(int id) {
         return accountRepository.findById(id);
     }
 

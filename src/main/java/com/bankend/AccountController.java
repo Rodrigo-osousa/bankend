@@ -25,22 +25,23 @@ public class AccountController {
     }
 
     @GetMapping("/{id")
-    public Optional<Account> obtainAccountID(@PathVariable int id){
-        return accountService.obtainAccountId(id);
+    public Optional<Account> searchAccountById(@PathVariable int id){
+        return accountService.searchAccountById(id);
     }
 
     @PutMapping("/update")
     public Account updateAccount(@Valid Account account) {
         return accountService.updateAccount(account);
     }
+
     @DeleteMapping(path = "/{id}")
     public void deleteAccount(@PathVariable int id){
         accountService.deleteAccount(id);
     }
 
     @GetMapping("/list")
-    public Iterable<Account> obtainAccount() {
-        return accountService.obtainAccount();
+    public Iterable<Account> searchAllAccounts() {
+        return accountService.searchAllAccounts();
     }
 
 }
