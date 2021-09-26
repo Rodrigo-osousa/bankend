@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "2fa17d26-e752-4187-930f-ab9eade9da53",
+		"_postman_id": "52b97197-a630-4c2a-9806-d14bcee5704c",
 		"name": "bankend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "bankend create cliente",
+			"name": "Create Client",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -35,7 +35,7 @@
 			"response": []
 		},
 		{
-			"name": "listar cliente",
+			"name": "List Client",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "Listar contas",
+			"name": "List Accounts",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -75,7 +75,7 @@
 			"response": []
 		},
 		{
-			"name": "Criar contas",
+			"name": "Create Accounts",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -98,6 +98,35 @@
 					"path": [
 						"account",
 						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Account",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"id\": 1,\r\n    \"accountNumber\": \"1234\",\r\n    \"agency\": 1,\r\n    \"balance\": 3.5,\r\n    \"credit\": 20.0,\r\n    \"inactive\": false,\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/account/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account",
+						"update"
 					]
 				}
 			},

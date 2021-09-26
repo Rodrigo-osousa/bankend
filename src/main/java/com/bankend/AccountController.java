@@ -14,8 +14,10 @@ import java.util.Optional;
 @RequestMapping("/account")
 
 public class AccountController {
+
     @Autowired
     AccountService accountService;
+
 
     @PostMapping("/new")
     @ResponseBody
@@ -24,14 +26,14 @@ public class AccountController {
 
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public Optional<Account> searchAccountById(@PathVariable int id){
         return accountService.searchAccountById(id);
     }
 
     @PutMapping("/update")
-    public Account updateAccount(@Valid Account account) {
-        return accountService.updateAccount(account);
+    public AccountRequest updateAccount(@Valid AccountRequest accountRequest) throws Exception {
+        return accountService.updateAccount(accountRequest);
     }
 
     @DeleteMapping(path = "/{id}")

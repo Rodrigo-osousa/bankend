@@ -8,7 +8,9 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAccount;
+    private int id;
+
+    private String accountNumber;
 
     private int agency;
 
@@ -25,8 +27,9 @@ public class Account {
 
     }
 
-    public Account(int idAccount, int agency, Double balance, Double credit, Boolean inactive, Client client) {
-        this.idAccount = idAccount;
+    public Account(int id,String accountNumber, int agency, Double balance, Double credit, Boolean inactive, Client client) {
+        this.id = id;
+        this.accountNumber = accountNumber;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
@@ -34,12 +37,12 @@ public class Account {
         this.client = client;
     }
 
-    public int getIdAccount() {
-        return idAccount;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAccount(int idAccount) {
-        this.idAccount = idAccount;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAgency() {
@@ -82,10 +85,16 @@ public class Account {
         this.client = client;
     }
 
+    public String getAccountNumber() { return accountNumber; }
+
+    public void setAccountNumber(String accountNumber) { this.accountNumber = accountNumber;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-                "idAccount=" + idAccount +
+        return "Account{" +
+                "id=" + id +
+                ", accountNumber=" + accountNumber +
                 ", agency=" + agency +
                 ", balance=" + balance +
                 ", credit=" + credit +

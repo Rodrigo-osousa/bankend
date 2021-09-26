@@ -4,7 +4,10 @@ import javax.validation.constraints.*;
 
 public class AccountRequest {
 
-    @NotNull(message = "Acgency cannot be null")
+    @NotNull(message = "AccountNumber cannot be null")
+    private String accountNumber;
+
+    @NotNull(message = "Agency cannot be null")
     @Max(value = 9999,message = "Agency cannot be greater than 4")
     private int agency;
 
@@ -27,7 +30,8 @@ public class AccountRequest {
 
     }
 
-    public AccountRequest(int agency, Double balance, Double credit, Boolean inactive, String documentNumber) {
+    public AccountRequest(int agency,String accountNumber, Double balance, Double credit, Boolean inactive, String documentNumber) {
+        this.accountNumber =  accountNumber;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
@@ -73,6 +77,14 @@ public class AccountRequest {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     @Override

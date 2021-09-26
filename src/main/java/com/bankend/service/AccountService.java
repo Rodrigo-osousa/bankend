@@ -26,8 +26,8 @@ public class AccountService {
 
 
     public AccountRequest createAccount(AccountRequest accountRequest) throws Exception {
+
         logger.info("createAccount: " + accountRequest.toString());
-        // valida
         Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
 
         if (client.isEmpty()){
@@ -36,6 +36,7 @@ public class AccountService {
         }
 
         Account account = new Account();
+        account.setAccountNumber(accountRequest.getAccountNumber());
         account.setAgency(accountRequest.getAgency());
         account.setBalance(accountRequest.getBalance());
         account.setCredit(accountRequest.getCredit());
@@ -46,9 +47,23 @@ public class AccountService {
         return accountRequest;
     }
 
-    public Account updateAccount(Account account) {
+    public AccountRequest updateAccount(AccountRequest accountRequest) throws Exception {
+        logger.info("Atualizando  conta");
+        Optional<Account> accountExist = accountRepository.findByAccountNumber(accountRequest.getDocumentNumber());
+        if (accountExist.isEmpty()){
+            logger.info("Conta inexistente");
+            throw  new Exception();
+        }
+        Account account = new Account();
+        account.setAccountNumber(accountRequest.getAccountNumber());
+        account.setAgency(accountRequest.getAgency());
+        account.setBalance(accountRequest.getBalance());
+        account.setCredit(accountRequest.getCredit());
+        account.setInactive(accountRequest.getInactive());
+
+
         accountRepository.save(account);
-        return account;
+        return accountRequest;
     }
 
     public Iterable<Account> searchAllAccounts() {
