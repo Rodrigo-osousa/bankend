@@ -55,7 +55,7 @@ class AccountServiceTest {
         account.setCredit(10.000);
         account.setAgency(1345);
         account.setInactive(true);
-        accountService.updateAccount(accountRequest);
+        accountService.updateAccount(account);
 
         Optional<Account> accountUpdated = accountRepository.findById(1);
         Assertions.assertEquals(0.0, accountUpdated.get().getBalance());

@@ -1,4 +1,4 @@
-package com.bankend;
+package com.bankend.model.entity.controllers;
 
 
 import com.bankend.model.entity.Account;
@@ -32,8 +32,8 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public AccountRequest updateAccount(@Valid AccountRequest accountRequest) throws Exception {
-        return accountService.updateAccount(accountRequest);
+    public Account updateAccount(@Valid Account account) {
+        return accountService.updateAccount(account);
     }
 
     @DeleteMapping(path = "/{id}")

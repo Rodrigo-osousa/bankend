@@ -4,6 +4,7 @@ import javax.validation.constraints.*;
 
 public class AccountRequest {
 
+
     @NotNull(message = "AccountNumber cannot be null")
     private String accountNumber;
 
@@ -31,6 +32,7 @@ public class AccountRequest {
     }
 
     public AccountRequest(int agency,String accountNumber, Double balance, Double credit, Boolean inactive, String documentNumber) {
+
         this.accountNumber =  accountNumber;
         this.agency = agency;
         this.balance = balance;
@@ -38,6 +40,8 @@ public class AccountRequest {
         this.inactive = inactive;
         this.documentNumber = documentNumber;
     }
+
+
 
     public int getAgency() {
         return agency;
@@ -89,8 +93,9 @@ public class AccountRequest {
 
     @Override
     public String toString() {
-        return "{" +
-                "agency=" + agency +
+        return "AccountRequest{" +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", agency=" + agency +
                 ", balance=" + balance +
                 ", credit=" + credit +
                 ", inactive=" + inactive +

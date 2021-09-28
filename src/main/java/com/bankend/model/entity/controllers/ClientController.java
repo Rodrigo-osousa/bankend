@@ -1,4 +1,4 @@
-package com.bankend;
+package com.bankend.model.entity.controllers;
 
 import com.bankend.model.entity.Client;
 import com.bankend.model.entity.request.ClientRequest;
