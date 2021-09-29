@@ -32,48 +32,48 @@ class AccountServiceTest {
     @Test
     void createAccount() throws Exception {
 
-        ClientRequest clientRequest = new ClientRequest("Client Test", "Str. Test", "123123123");
+        ClientRequest clientRequest = new ClientRequest(1,"Client Test", "Str. Test", "123123123");
         clientService.createClient(clientRequest);
 
-        AccountRequest accountRequest = new AccountRequest(5000,"1", 2000.00, 2000.00, true, "123123123");
+        AccountRequest accountRequest = new AccountRequest(2,"12345",10,50.00,100.00,true,"111111111");
         accountService.createAccount(accountRequest);
     }
 
     @Test
     void updateAccount() throws Exception {
 
-        ClientRequest clientRequest = new ClientRequest("Client Test 2", "Str. Test2", "999999999");
+        ClientRequest clientRequest = new ClientRequest(3,"Client Test 2", "Str. Test2", "999999999");
         clientService.createClient(clientRequest);
 
-        AccountRequest accountRequest = new AccountRequest(1234,"5", 1000.00, 1000.0, true, "999999999");
+        AccountRequest accountRequest = new AccountRequest(3,"12346",10,50.00,100.00,true,"222222222");
         accountService.createAccount(accountRequest);
 
         Account account = new Account();
-        account.setId(1);
-        account.setAccountNumber("5");
+        account.setId(3);
+        account.setAccountNumber("12346");
         account.setBalance(0.0);
         account.setCredit(10.000);
         account.setAgency(1345);
         account.setInactive(true);
-        accountService.updateAccount(account);
+        accountService.updateAccount(accountRequest);
 
-        Optional<Account> accountUpdated = accountRepository.findById(1);
+        Optional<Account> accountUpdated = accountRepository.findById(2);
         Assertions.assertEquals(0.0, accountUpdated.get().getBalance());
     }
 
     @Test
     void searchAllAccounts() throws Exception {
 
-        ClientRequest clientRequest1 = new ClientRequest("Client Test 3", "Str. Neverland", "333333333");
+        ClientRequest clientRequest1 = new ClientRequest(4,"Client Test 3", "Str. Neverland", "333333333");
         clientService.createClient(clientRequest1);
 
-        AccountRequest accountRequest1 = new AccountRequest(5000,"2", 1.0, 5.0, false, "333333333");
+        AccountRequest accountRequest1 = new AccountRequest(3,"12344",10,100.00,10.00,false,"333333333");
         accountService.createAccount(accountRequest1);
 
-        ClientRequest clientRequest2 = new ClientRequest("Client Test 4", "Str. FarfarWay", "444444444");
+        ClientRequest clientRequest2 = new ClientRequest(5,"Client Test 4", "Str. FarfarWay", "444444444");
         clientService.createClient(clientRequest2);
 
-        AccountRequest accountRequest2 = new AccountRequest(5000,"3", 50.00,100.00, true, "444444444");
+        AccountRequest accountRequest2 = new AccountRequest(4,"12349",10,5.00,10.00,false,"444444444");
         accountService.createAccount(accountRequest2);
 
         List<Account> allAccounts = (List<Account>) accountRepository.findAll();
@@ -84,10 +84,10 @@ class AccountServiceTest {
     @Test
     void serchAccountById() throws Exception {
 
-        ClientRequest clientRequest1 = new ClientRequest("Client Test 5", "Str. Wakanda", "777777777");
+        ClientRequest clientRequest1 = new ClientRequest(6,"Client Test 5", "Str. Wakanda", "777777777");
         clientService.createClient(clientRequest1);
 
-        AccountRequest accountRequest1 = new AccountRequest(5000,"4", 2.000, 3.000, false, "777777777");
+        AccountRequest accountRequest1 = new AccountRequest(5,"12341",10,10.10,5.00,false,"555555555");
         accountService.createAccount(accountRequest1);
 
 

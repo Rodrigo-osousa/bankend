@@ -4,6 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class ClientRequest {
+
+    private int id;
     
     @NotBlank(message =  "Name cannot be blank")
     private String name;
@@ -19,10 +21,20 @@ public class ClientRequest {
 
     }
 
-    public ClientRequest(String name, String address, String documentNumber) {
+    public ClientRequest(int id, String name, String address, String documentNumber) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.documentNumber = documentNumber;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

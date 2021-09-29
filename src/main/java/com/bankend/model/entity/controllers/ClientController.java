@@ -19,7 +19,7 @@ public class ClientController {
 
     @Validated
     @PostMapping("/new")
-    public void createClient (@Valid @RequestBody ClientRequest clientRequest) throws Exception {
+    public void createClient(@Valid @RequestBody ClientRequest clientRequest) throws Exception {
         clientService.createClient(clientRequest);
 
     }
@@ -35,8 +35,8 @@ public class ClientController {
     }
 
     @PutMapping("/update")
-    public Client updateClient(@Valid Client client) {
-        return clientService.updateClient(client);
+    public ClientRequest updateClient(@Valid ClientRequest clientRequest) throws Exception {
+        return clientService.upadateClient(clientRequest);
     }
 
     @DeleteMapping(path = "/{id}")

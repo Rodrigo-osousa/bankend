@@ -31,9 +31,10 @@ public class AccountController {
         return accountService.searchAccountById(id);
     }
 
+
     @PutMapping("/update")
-    public Account updateAccount(@Valid Account account) {
-        return accountService.updateAccount(account);
+    public AccountRequest updateAccount(AccountRequest accountRequest) throws Exception {
+        return accountService.updateAccount(accountRequest);
     }
 
     @DeleteMapping(path = "/{id}")

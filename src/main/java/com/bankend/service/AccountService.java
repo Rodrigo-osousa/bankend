@@ -47,9 +47,25 @@ public class AccountService {
         return accountRequest;
     }
 
-    public Account updateAccount(Account account) {
+
+    public AccountRequest updateAccount(AccountRequest accountRequest) throws Exception {
+        Optional<Account> findAccount = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
+        Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
+        if (findAccount.isEmpty()){
+            throw new Exception();
+        }
+
+        Account account = new Account();
+        account.setId(accountRequest.getId());
+        account.setAccountNumber(accountRequest.getAccountNumber());
+        account.setAgency(accountRequest.getAgency());
+        account.setBalance(accountRequest.getBalance());
+        account.setCredit(accountRequest.getCredit());
+        account.setInactive(accountRequest.getInactive());
+        account.setClient(client.get());
+
         accountRepository.save(account);
-        return account;
+        return accountRequest;
     }
 
     public Iterable<Account> searchAllAccounts() {

@@ -4,12 +4,14 @@ import javax.validation.constraints.*;
 
 public class AccountRequest {
 
+    private int id;
 
     @NotNull(message = "AccountNumber cannot be null")
+    @Max(value = 99999, message = "AccountNumber cannot be greater than  5 digits")
     private String accountNumber;
 
     @NotNull(message = "Agency cannot be null")
-    @Max(value = 9999,message = "Agency cannot be greater than 4")
+    @Max(value = 9999,message = "Agency cannot be greater than 4 digits")
     private int agency;
 
     @NotNull(message = "Balance cannot be less than 0")
@@ -31,9 +33,9 @@ public class AccountRequest {
 
     }
 
-    public AccountRequest(int agency,String accountNumber, Double balance, Double credit, Boolean inactive, String documentNumber) {
-
-        this.accountNumber =  accountNumber;
+    public AccountRequest(int id, String accountNumber, int agency, Double balance, Double credit, Boolean inactive, String documentNumber) {
+        this.id = id;
+        this.accountNumber = accountNumber;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
@@ -42,6 +44,14 @@ public class AccountRequest {
     }
 
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getAgency() {
         return agency;
@@ -94,6 +104,7 @@ public class AccountRequest {
     @Override
     public String toString() {
         return "AccountRequest{" +
+                "id=" + id +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", agency=" + agency +
                 ", balance=" + balance +
@@ -103,3 +114,4 @@ public class AccountRequest {
                 '}';
     }
 }
+
