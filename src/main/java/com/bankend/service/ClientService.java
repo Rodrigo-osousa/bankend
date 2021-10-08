@@ -4,6 +4,7 @@ import com.bankend.model.entity.Client;
 import com.bankend.model.entity.request.ClientRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 
 
 @Service
+
 public class ClientService {
 
     Logger logger = Logger.getLogger(ClientService.class.getName());
