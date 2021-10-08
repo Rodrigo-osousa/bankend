@@ -21,8 +21,7 @@ public class ClientRequest {
 
     }
 
-    public ClientRequest(int id, String name, String address, String documentNumber) {
-        this.id = id;
+    public ClientRequest(String name, String address, String documentNumber) {
         this.name = name;
         this.address = address;
         this.documentNumber = documentNumber;

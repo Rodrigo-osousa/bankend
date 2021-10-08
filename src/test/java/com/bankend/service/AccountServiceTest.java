@@ -5,9 +5,7 @@ import com.bankend.model.entity.request.AccountRequest;
 import com.bankend.model.entity.request.ClientRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AccountServiceTest {
     @Autowired
     private AccountRepository accountRepository;
@@ -28,77 +28,80 @@ class AccountServiceTest {
     @Autowired
     private ClientService clientService;
 
+    @BeforeAll
+    void setUp() throws Exception {
+        ClientRequest clientRequest = new ClientRequest("New Client 0", "Str. BNH", "000000000");
+        clientService.createClient(clientRequest);
+
+        AccountRequest accountRequest = new AccountRequest("00000", 15, 100.00, 100.00, true, "000000000");
+        accountService.createAccount(accountRequest);
+
+        ClientRequest clientRequest2 = new ClientRequest("New Client", "Str. BNH", "999999999");
+        clientService.createClient(clientRequest2);
+
+        AccountRequest accountRequest2 = new AccountRequest("00009", 15, 100.00, 100.00, true, "999999999");
+        accountService.createAccount(accountRequest2);
+
+    }
+
 
     @Test
     void createAccount() throws Exception {
 
-        ClientRequest clientRequest = new ClientRequest(1,"Client Test", "Str. Test", "123123123");
+        ClientRequest clientRequest = new ClientRequest("New Client", "Str. BNH", "111111111");
         clientService.createClient(clientRequest);
 
-        AccountRequest accountRequest = new AccountRequest(2,"12345",10,50.00,100.00,true,"111111111");
+        AccountRequest accountRequest = new AccountRequest("00001", 15, 100.00, 100.00, true, "111111111");
         accountService.createAccount(accountRequest);
+
+
+        Optional<Account> canCreateAccount = accountRepository.findByAccountNumber("00001");
+        Assertions.assertEquals("111111111", canCreateAccount.get().getClient().getDocumentNumber());
     }
+
 
     @Test
     void updateAccount() throws Exception {
 
-        ClientRequest clientRequest = new ClientRequest(3,"Client Test 2", "Str. Test2", "999999999");
-        clientService.createClient(clientRequest);
 
-        AccountRequest accountRequest = new AccountRequest(3,"12346",10,50.00,100.00,true,"222222222");
-        accountService.createAccount(accountRequest);
+        AccountRequest accountToUpdate = new AccountRequest();
+        accountToUpdate.setAccountNumber("00000");
+        accountToUpdate.setBalance(0.0);
+        accountToUpdate.setCredit(10.000);
+        accountToUpdate.setAgency(1345);
+        accountToUpdate.setInactive(true);
+        accountToUpdate.setDocumentNumber("000000000");
+        accountService.updateAccount(accountToUpdate);
 
-        Account account = new Account();
-        account.setId(3);
-        account.setAccountNumber("12346");
-        account.setBalance(0.0);
-        account.setCredit(10.000);
-        account.setAgency(1345);
-        account.setInactive(true);
-        accountService.updateAccount(accountRequest);
-
-        Optional<Account> accountUpdated = accountRepository.findById(2);
+        Optional<Account> accountUpdated = accountRepository.findByAccountNumber("00000");
         Assertions.assertEquals(0.0, accountUpdated.get().getBalance());
     }
 
     @Test
-    void searchAllAccounts() throws Exception {
-
-        ClientRequest clientRequest1 = new ClientRequest(4,"Client Test 3", "Str. Neverland", "333333333");
-        clientService.createClient(clientRequest1);
-
-        AccountRequest accountRequest1 = new AccountRequest(3,"12344",10,100.00,10.00,false,"333333333");
-        accountService.createAccount(accountRequest1);
-
-        ClientRequest clientRequest2 = new ClientRequest(5,"Client Test 4", "Str. FarfarWay", "444444444");
-        clientService.createClient(clientRequest2);
-
-        AccountRequest accountRequest2 = new AccountRequest(4,"12349",10,5.00,10.00,false,"444444444");
-        accountService.createAccount(accountRequest2);
+    void searchAllAccounts() {
 
         List<Account> allAccounts = (List<Account>) accountRepository.findAll();
-        Assertions.assertEquals(2, allAccounts.size());
+        Assertions.assertTrue(allAccounts.size() >= 1);
 
     }
 
     @Test
-    void serchAccountById() throws Exception {
-
-        ClientRequest clientRequest1 = new ClientRequest(6,"Client Test 5", "Str. Wakanda", "777777777");
-        clientService.createClient(clientRequest1);
-
-        AccountRequest accountRequest1 = new AccountRequest(5,"12341",10,10.10,5.00,false,"555555555");
-        accountService.createAccount(accountRequest1);
+    void searchAccountById() {
 
 
-        Optional<Account> accountIsCorrect = accountRepository.findById(4);
-        Assertions.assertEquals("777777777", accountIsCorrect.get().getClient().getDocumentNumber());
+        Optional<Account> accountIsCorrect = accountRepository.findById(1);
+        Assertions.assertEquals("000000000", accountIsCorrect.get().getClient().getDocumentNumber());
 
     }
 
     @Test
-    @Disabled
     void deleteAccount() {
 
+        accountService.deleteAccount(2);
+        List<Account> canDeleteAccount = (List<Account>) accountRepository.findAll();
+        boolean haveAccount = canDeleteAccount.size() == 1;
+        Assertions.assertTrue(haveAccount);
+
     }
+
 }

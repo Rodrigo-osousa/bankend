@@ -31,7 +31,7 @@ public class AccountService {
         Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
 
         if (client.isEmpty()){
-            logger.info("Cliente não cadastrado");
+            logger.info("Client not exist");
             throw new Exception();
         }
 
@@ -52,11 +52,12 @@ public class AccountService {
         Optional<Account> findAccount = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
         Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
         if (findAccount.isEmpty()){
+            logger.info("Account or Client not exist");
             throw new Exception();
         }
 
         Account account = new Account();
-        account.setId(accountRequest.getId());
+        account.setId(findAccount.get().getId());
         account.setAccountNumber(accountRequest.getAccountNumber());
         account.setAgency(accountRequest.getAgency());
         account.setBalance(accountRequest.getBalance());
@@ -68,7 +69,7 @@ public class AccountService {
         return accountRequest;
     }
 
-    public Iterable<Account> searchAllAccounts() {
+    public Iterable<Account> findAllAccounts() {
         return accountRepository.findAll();
     }
 
@@ -79,4 +80,6 @@ public class AccountService {
     public void deleteAccount(int id) {
         accountRepository.deleteById(id);
     }
-}
+
+    }
+

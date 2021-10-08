@@ -43,8 +43,8 @@ public class AccountController {
     }
 
     @GetMapping("/list")
-    public Iterable<Account> searchAllAccounts() {
-        return accountService.searchAllAccounts();
+    public Iterable<Account> findAllAccounts() {
+        return accountService.findAllAccounts();
     }
 
 }

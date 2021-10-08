@@ -25,13 +25,13 @@ public class ClientController {
     }
 
     @GetMapping("/list")
-    public Iterable<Client> obtainClient() {
-        return clientService.obtainClient();
+    public Iterable<Client> searchClient() {
+        return clientService.searchClient();
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> obtainClienteId(@PathVariable int id) throws Exception {
-        return clientService.obtainClientId(id);
+    public Optional<Client> searchClienteById(@PathVariable int id) throws Exception {
+        return clientService.searchClientById(id);
     }
 
     @PutMapping("/update")

@@ -27,10 +27,10 @@ public class ClientService {
 
         logger.info("=========> Crindo cliente: " + clientRequest.toString());
 
-        boolean clientExist = verifyIfExists(clientRequest.getDocumentNumber());
+        boolean clientExist = verifyIfClientExists(clientRequest.getDocumentNumber());
 
         if (clientExist) {
-            logger.info("Erro ao tentar cadastrar cliente já existente");
+            logger.info("Error when trying to register existing Client");
             throw new Exception();
         }
 
@@ -40,7 +40,7 @@ public class ClientService {
         client.setName(clientRequest.getName());
 
         clientRepository.save(client);
-        logger.info("Cliente salvo com sucesso: " + client.getDocumentNumber());
+        logger.info("Client saved successfully: " + client.getDocumentNumber());
     }
 
 
@@ -48,7 +48,7 @@ public class ClientService {
         Optional<Client> findClientById = clientRepository.findById(clientRequest.getId());
 
         if (findClientById.isEmpty()) {
-            logger.info("Erro ao tentar localizar cliente");
+            logger.info("Error trying to locate Client");
             throw new Exception();
         }
         Client client = new Client();
@@ -58,15 +58,15 @@ public class ClientService {
         client.setId(clientRequest.getId());
 
         clientRepository.save(client);
-        logger.info("Cliente atualizado com sucesso" + client.getName());
+        logger.info("Client updated successfully" + client.getName());
         return clientRequest;
     }
 
-    public Iterable<Client> obtainClient() {
+    public Iterable<Client> searchClient() {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> obtainClientId(int id) throws Exception {
+    public Optional<Client> searchClientById(int id) throws Exception {
 
         Optional<Client> clientReturn = clientRepository.findById(id);
         if (clientReturn.isEmpty()) {
@@ -79,7 +79,7 @@ public class ClientService {
         logger.info("Client deleted");
     }
 
-    private boolean verifyIfExists(String documentNumber) {
+    private boolean verifyIfClientExists(String documentNumber) {
         Optional<Client> clientFromDatabase = clientRepository.findByDocumentNumber(documentNumber);
         return clientFromDatabase.isPresent();
     }
