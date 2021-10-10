@@ -1,4 +1,4 @@
-package com.bankend.model.entity.request;
+package com.bankend.model.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

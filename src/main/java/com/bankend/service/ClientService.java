@@ -1,10 +1,10 @@
 package com.bankend.service;
 
+import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Client;
-import com.bankend.model.entity.request.ClientRequest;
+import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class ClientService {
     private AccountRepository accountRepository;
 
 
-    public void createClient(ClientRequest clientRequest) throws Exception {
+    public void createClient(ClientRequest clientRequest) throws BusinessException{
 
         logger.info("=========> Crindo cliente: " + clientRequest.toString());
 
@@ -33,7 +33,7 @@ public class ClientService {
 
         if (clientExist) {
             logger.info("Error when trying to register existing Client");
-            throw new Exception();
+            throw new BusinessException("Error when trying to register existing Client");
         }
 
         Client client = new Client();
@@ -46,12 +46,12 @@ public class ClientService {
     }
 
 
-    public ClientRequest upadateClient(ClientRequest clientRequest) throws Exception {
+    public ClientRequest updateClient(ClientRequest clientRequest) throws BusinessException {
         Optional<Client> findClientById = clientRepository.findById(clientRequest.getId());
 
         if (findClientById.isEmpty()) {
             logger.info("Error trying to locate Client");
-            throw new Exception();
+            throw new BusinessException("Error trying to locate Client");
         }
         Client client = new Client();
         client.setAddress(clientRequest.getAddress());
@@ -68,11 +68,11 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> searchClientById(int id) throws Exception {
+    public Optional<Client> searchClientById(int id) throws BusinessException {
 
         Optional<Client> clientReturn = clientRepository.findById(id);
         if (clientReturn.isEmpty()) {
-            throw new Exception("Client not Exist");
+            throw new BusinessException("Client not Exist");
         }
         return clientReturn;
     }

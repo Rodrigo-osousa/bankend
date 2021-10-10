@@ -1,7 +1,7 @@
 package com.bankend.service;
 
 import com.bankend.model.entity.Client;
-import com.bankend.model.entity.request.ClientRequest;
+import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.ClientRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -54,7 +55,7 @@ class ClientServiceTest {
         clientToUpdate.setName("New Client Updated");
         clientToUpdate.setAddress("Str. Stonehange");
         clientToUpdate.setDocumentNumber("968574321");
-        clientService.upadateClient(clientToUpdate);
+        clientService.updateClient(clientToUpdate);
 
         Optional<Client> canUpdateClient = clientRepository.findByDocumentNumber("968574321");
         Assertions.assertEquals("New Client Updated", canUpdateClient.get().getName());
@@ -63,13 +64,22 @@ class ClientServiceTest {
 
     @Test
     void searchClient() {
+       List<Client> findAllClients = (List<Client>) clientRepository.findAll();
+       Assertions.assertTrue(findAllClients.size() >= 1);
+
     }
 
     @Test
     void searchClientById() {
+        Optional<Client> findClientById = clientRepository.findById(1);
+        Assertions.assertEquals("968574321", findClientById.get().getDocumentNumber());
     }
 
     @Test
     void deleteClient() {
+        clientService.deleteClient(2);
+        Optional<Client> clientDeleted = clientRepository.findById(2);
+        boolean canDelete = clientDeleted.isEmpty();
+        Assertions.assertTrue(canDelete);
     }
 }

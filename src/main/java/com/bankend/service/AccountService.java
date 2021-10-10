@@ -2,7 +2,7 @@ package com.bankend.service;
 
 import com.bankend.model.entity.Account;
 import com.bankend.model.entity.Client;
-import com.bankend.model.entity.request.AccountRequest;
+import com.bankend.model.request.AccountRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;

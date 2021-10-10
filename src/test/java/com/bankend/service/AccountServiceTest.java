@@ -1,8 +1,8 @@
 package com.bankend.service;
 
 import com.bankend.model.entity.Account;
-import com.bankend.model.entity.request.AccountRequest;
-import com.bankend.model.entity.request.ClientRequest;
+import com.bankend.model.request.AccountRequest;
+import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
 import org.junit.jupiter.api.*;
@@ -80,8 +80,8 @@ class AccountServiceTest {
     @Test
     void searchAllAccounts() {
 
-        List<Account> allAccounts = (List<Account>) accountRepository.findAll();
-        Assertions.assertTrue(allAccounts.size() >= 1);
+        List<Account> findAllAccounts = (List<Account>) accountRepository.findAll();
+        Assertions.assertTrue(findAllAccounts.size() >= 1);
 
     }
 
@@ -89,8 +89,8 @@ class AccountServiceTest {
     void searchAccountById() {
 
 
-        Optional<Account> accountIsCorrect = accountRepository.findById(1);
-        Assertions.assertEquals("000000000", accountIsCorrect.get().getClient().getDocumentNumber());
+        Optional<Account> findAccountById = accountRepository.findById(1);
+        Assertions.assertEquals("000000000", findAccountById.get().getClient().getDocumentNumber());
 
     }
 

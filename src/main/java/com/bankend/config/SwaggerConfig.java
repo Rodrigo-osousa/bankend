@@ -1,4 +1,4 @@
-package com.bankend.model.entity;
+package com.bankend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

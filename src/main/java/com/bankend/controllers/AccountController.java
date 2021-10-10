@@ -1,8 +1,8 @@
-package com.bankend.model.entity.controllers;
+package com.bankend.controllers;
 
 
 import com.bankend.model.entity.Account;
-import com.bankend.model.entity.request.AccountRequest;
+import com.bankend.model.request.AccountRequest;
 import com.bankend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

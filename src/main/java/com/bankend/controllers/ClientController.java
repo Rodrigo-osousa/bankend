@@ -1,9 +1,12 @@
-package com.bankend.model.entity.controllers;
+package com.bankend.controllers;
 
+import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Client;
-import com.bankend.model.entity.request.ClientRequest;
+import com.bankend.model.request.ClientRequest;
 import com.bankend.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +22,15 @@ public class ClientController {
 
     @Validated
     @PostMapping("/new")
-    public void createClient(@Valid @RequestBody ClientRequest clientRequest) throws Exception {
-        clientService.createClient(clientRequest);
-
+    public ResponseEntity<String> createClient(@Valid @RequestBody ClientRequest clientRequest) throws BusinessException {
+        try {
+            clientService.createClient(clientRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Success");
+        } catch (BusinessException ex){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
     }
 
     @GetMapping("/list")
@@ -30,13 +39,13 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> searchClienteById(@PathVariable int id) throws Exception {
+    public Optional<Client> searchClientById(@PathVariable int id) throws Exception {
         return clientService.searchClientById(id);
     }
 
     @PutMapping("/update")
     public ClientRequest updateClient(@Valid ClientRequest clientRequest) throws Exception {
-        return clientService.upadateClient(clientRequest);
+        return clientService.updateClient(clientRequest);
     }
 
     @DeleteMapping(path = "/{id}")
