@@ -1,5 +1,6 @@
 package com.bankend.service;
 
+import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Account;
 import com.bankend.model.entity.Client;
 import com.bankend.model.request.AccountRequest;
@@ -25,14 +26,14 @@ public class AccountService {
     private ClientRepository clientRepository;
 
 
-    public AccountRequest createAccount(AccountRequest accountRequest) throws Exception {
+    public AccountRequest createAccount(AccountRequest accountRequest) throws BusinessException {
 
         logger.info("createAccount: " + accountRequest.toString());
         Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
 
         if (client.isEmpty()){
             logger.info("Client not exist");
-            throw new Exception();
+            throw new BusinessException("Client not exist");
         }
 
         Account account = new Account();
@@ -48,12 +49,12 @@ public class AccountService {
     }
 
 
-    public AccountRequest updateAccount(AccountRequest accountRequest) throws Exception {
+    public AccountRequest updateAccount(AccountRequest accountRequest) throws BusinessException {
         Optional<Account> findAccount = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
         Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
         if (findAccount.isEmpty()){
             logger.info("Account or Client not exist");
-            throw new Exception();
+            throw new BusinessException("Account or Client not exist");
         }
 
         Account account = new Account();

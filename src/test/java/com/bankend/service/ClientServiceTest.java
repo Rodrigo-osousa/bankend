@@ -1,5 +1,7 @@
 package com.bankend.service;
 
+import com.bankend.controllers.ClientController;
+import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Client;
 import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.ClientRepository;
@@ -70,6 +72,31 @@ class ClientServiceTest {
     }
 
     @Test
+    void createClientException() throws BusinessException {
+        ClientRequest clientRequest5 = new ClientRequest("New Client 1", "Str. Stonehange", "968574321");
+
+        Assertions.assertThrows(BusinessException.class, () -> {
+            clientService.createClient(clientRequest5);
+        });
+
+        }
+
+    @Test
+    void updateClientException() throws BusinessException {
+        ClientRequest clientToUpdateEx = new ClientRequest();
+        clientToUpdateEx.setId(13);
+        clientToUpdateEx.setName("New Client Updated");
+        clientToUpdateEx.setAddress("Str. Stonehange");
+        clientToUpdateEx.setDocumentNumber("pãoDeBatata");
+
+        Assertions.assertThrows(BusinessException.class, () -> {
+            clientService.updateClient(clientToUpdateEx);
+        });
+
+    }
+
+
+    @Test
     void searchClientById() {
         Optional<Client> findClientById = clientRepository.findById(1);
         Assertions.assertEquals("968574321", findClientById.get().getDocumentNumber());
@@ -82,4 +109,5 @@ class ClientServiceTest {
         boolean canDelete = clientDeleted.isEmpty();
         Assertions.assertTrue(canDelete);
     }
+
 }

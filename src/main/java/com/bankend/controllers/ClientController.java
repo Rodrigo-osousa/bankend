@@ -26,7 +26,19 @@ public class ClientController {
         try {
             clientService.createClient(clientRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body("Success");
-        } catch (BusinessException ex){
+        } catch (BusinessException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateClient(@Valid ClientRequest clientRequest) throws BusinessException {
+        try {
+            clientService.updateClient(clientRequest);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Updated");
+        } catch (BusinessException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -43,10 +55,6 @@ public class ClientController {
         return clientService.searchClientById(id);
     }
 
-    @PutMapping("/update")
-    public ClientRequest updateClient(@Valid ClientRequest clientRequest) throws Exception {
-        return clientService.updateClient(clientRequest);
-    }
 
     @DeleteMapping(path = "/{id}")
     public void deleteClient(@PathVariable int id) {

@@ -1,5 +1,6 @@
 package com.bankend.service;
 
+import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Account;
 import com.bankend.model.request.AccountRequest;
 import com.bankend.model.request.ClientRequest;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.nio.BufferOverflowException;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,9 +90,39 @@ class AccountServiceTest {
     @Test
     void searchAccountById() {
 
-
         Optional<Account> findAccountById = accountRepository.findById(1);
         Assertions.assertEquals("000000000", findAccountById.get().getClient().getDocumentNumber());
+
+    }
+
+    @Test
+    void createAccountException() throws BusinessException {
+        ClientRequest clientRequest = new ClientRequest("New Client", "Str. BNH", "111111112");
+        clientService.createClient(clientRequest);
+
+        AccountRequest accountRequest = new AccountRequest("00001", 15, 100.00, 100.00, true, "111111113");
+
+        Assertions.assertThrows(BusinessException.class, () -> {
+            accountService.createAccount(accountRequest);
+        });
+    }
+
+    @Test
+    void updateAccountException() throws BusinessException {
+
+            AccountRequest accountToUpdateEx = new AccountRequest();
+            accountToUpdateEx.setAccountNumber("11111");
+            accountToUpdateEx.setBalance(0.0);
+            accountToUpdateEx.setCredit(10.000);
+            accountToUpdateEx.setAgency(1345);
+            accountToUpdateEx.setInactive(true);
+            accountToUpdateEx.setDocumentNumber("000000001");
+
+            Assertions.assertThrows(BusinessException.class,() -> {
+                accountService.updateAccount(accountToUpdateEx);
+
+            });
+
 
     }
 
