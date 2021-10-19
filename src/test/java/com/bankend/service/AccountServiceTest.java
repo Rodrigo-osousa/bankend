@@ -7,14 +7,16 @@ import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.AccountRepository;
 import com.bankend.repository.ClientRepository;
 import org.junit.jupiter.api.*;
+import org.objectweb.asm.Handle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
-import java.nio.BufferOverflowException;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AccountServiceTest {
@@ -29,6 +31,8 @@ class AccountServiceTest {
 
     @Autowired
     private ClientService clientService;
+
+
 
     @BeforeAll
     void setUp() throws Exception {
@@ -45,6 +49,8 @@ class AccountServiceTest {
         accountService.createAccount(accountRequest2);
 
     }
+
+
 
 
     @Test
@@ -110,18 +116,18 @@ class AccountServiceTest {
     @Test
     void updateAccountException() throws BusinessException {
 
-            AccountRequest accountToUpdateEx = new AccountRequest();
-            accountToUpdateEx.setAccountNumber("11111");
-            accountToUpdateEx.setBalance(0.0);
-            accountToUpdateEx.setCredit(10.000);
-            accountToUpdateEx.setAgency(1345);
-            accountToUpdateEx.setInactive(true);
-            accountToUpdateEx.setDocumentNumber("000000001");
+        AccountRequest accountToUpdateEx = new AccountRequest();
+        accountToUpdateEx.setAccountNumber("11111");
+        accountToUpdateEx.setBalance(0.0);
+        accountToUpdateEx.setCredit(10.000);
+        accountToUpdateEx.setAgency(1345);
+        accountToUpdateEx.setInactive(true);
+        accountToUpdateEx.setDocumentNumber("000000001");
 
-            Assertions.assertThrows(BusinessException.class,() -> {
-                accountService.updateAccount(accountToUpdateEx);
+        Assertions.assertThrows(BusinessException.class, () -> {
+            accountService.updateAccount(accountToUpdateEx);
 
-            });
+        });
 
 
     }

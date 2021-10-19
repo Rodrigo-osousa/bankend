@@ -27,7 +27,7 @@ public class ClientService {
 
     public void createClient(ClientRequest clientRequest) throws BusinessException{
 
-        logger.info("=========> Crindo cliente: " + clientRequest.toString());
+        logger.info("Creating Client: " + clientRequest.toString());
 
         boolean clientExist = verifyIfClientExists(clientRequest.getDocumentNumber());
 

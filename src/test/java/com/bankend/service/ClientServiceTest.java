@@ -1,24 +1,21 @@
 package com.bankend.service;
 
-import com.bankend.controllers.ClientController;
 import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Client;
 import com.bankend.model.request.ClientRequest;
 import com.bankend.repository.ClientRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-
 class ClientServiceTest {
 
     @Autowired
@@ -33,9 +30,10 @@ class ClientServiceTest {
         ClientRequest clientRequest1 = new ClientRequest("New Client 1", "Str. Stonehange", "968574321");
         clientService.createClient(clientRequest1);
 
-        ClientRequest clientRequest2 = new ClientRequest("New Client 2", "Str. Stone Range", "968574322");
+        ClientRequest clientRequest2 = new ClientRequest("New Client 2", "Str. Stonehange", "968574322");
         clientService.createClient(clientRequest2);
     }
+
 
 
     @Test
@@ -66,8 +64,8 @@ class ClientServiceTest {
 
     @Test
     void searchClient() {
-       List<Client> findAllClients = (List<Client>) clientRepository.findAll();
-       Assertions.assertTrue(findAllClients.size() >= 1);
+        List<Client> findAllClients = (List<Client>) clientRepository.findAll();
+        Assertions.assertTrue(findAllClients.size() >= 1);
 
     }
 
@@ -79,7 +77,7 @@ class ClientServiceTest {
             clientService.createClient(clientRequest5);
         });
 
-        }
+    }
 
     @Test
     void updateClientException() throws BusinessException {
