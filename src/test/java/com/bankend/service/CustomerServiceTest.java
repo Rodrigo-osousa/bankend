@@ -1,9 +1,9 @@
 package com.bankend.service;
 
 import com.bankend.exception.BusinessException;
-import com.bankend.model.entity.Client;
-import com.bankend.model.request.ClientRequest;
-import com.bankend.repository.ClientRepository;
+import com.bankend.model.entity.Customer;
+import com.bankend.model.request.CustomerRequest;
+import com.bankend.repository.CustomerRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,22 +16,22 @@ import java.util.Optional;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ClientServiceTest {
+class CustomerServiceTest {
 
     @Autowired
-    ClientService clientService;
+    CustomerService customerService;
 
     @Autowired
-    ClientRepository clientRepository;
+    CustomerRepository customerRepository;
 
 
     @BeforeAll
     void setUp() throws Exception {
-        ClientRequest clientRequest1 = new ClientRequest("New Client 1", "Str. Stonehange", "968574321");
-        clientService.createClient(clientRequest1);
+        CustomerRequest customerRequest1 = new CustomerRequest("New Client 1", "Str. Stonehange", "968574321");
+        customerService.createCustomer(customerRequest1);
 
-        ClientRequest clientRequest2 = new ClientRequest("New Client 2", "Str. Stonehange", "968574322");
-        clientService.createClient(clientRequest2);
+        CustomerRequest customerRequest2 = new CustomerRequest("New Client 2", "Str. Stonehange", "968574322");
+        customerService.createCustomer(customerRequest2);
     }
 
 
@@ -39,10 +39,10 @@ class ClientServiceTest {
     @Test
     void createClient() throws Exception {
 
-        ClientRequest clientRequest3 = new ClientRequest("New Client 3", "Str. SpringField", "968574323");
-        clientService.createClient(clientRequest3);
+        CustomerRequest customerRequest3 = new CustomerRequest("New Client 3", "Str. SpringField", "968574323");
+        customerService.createCustomer(customerRequest3);
 
-        Optional<Client> canCreateClient = clientRepository.findByDocumentNumber("968574323");
+        Optional<Customer> canCreateClient = customerRepository.findByDocumentNumber("968574323");
         Assertions.assertEquals("New Client 3", canCreateClient.get().getName());
 
     }
@@ -50,45 +50,45 @@ class ClientServiceTest {
     @Test
     void updateClient() throws Exception {
 
-        ClientRequest clientToUpdate = new ClientRequest();
+        CustomerRequest clientToUpdate = new CustomerRequest();
         clientToUpdate.setId(1);
         clientToUpdate.setName("New Client Updated");
         clientToUpdate.setAddress("Str. Stonehange");
         clientToUpdate.setDocumentNumber("968574321");
-        clientService.updateClient(clientToUpdate);
+        customerService.updateCustomer(clientToUpdate);
 
-        Optional<Client> canUpdateClient = clientRepository.findByDocumentNumber("968574321");
+        Optional<Customer> canUpdateClient = customerRepository.findByDocumentNumber("968574321");
         Assertions.assertEquals("New Client Updated", canUpdateClient.get().getName());
 
     }
 
     @Test
     void searchClient() {
-        List<Client> findAllClients = (List<Client>) clientRepository.findAll();
-        Assertions.assertTrue(findAllClients.size() >= 1);
+        List<Customer> findAllCustomers = (List<Customer>) customerRepository.findAll();
+        Assertions.assertTrue(findAllCustomers.size() >= 1);
 
     }
 
     @Test
     void createClientException() throws BusinessException {
-        ClientRequest clientRequest5 = new ClientRequest("New Client 1", "Str. Stonehange", "968574321");
+        CustomerRequest customerRequest5 = new CustomerRequest("New Client 1", "Str. Stonehange", "968574321");
 
         Assertions.assertThrows(BusinessException.class, () -> {
-            clientService.createClient(clientRequest5);
+            customerService.createCustomer(customerRequest5);
         });
 
     }
 
     @Test
     void updateClientException() throws BusinessException {
-        ClientRequest clientToUpdateEx = new ClientRequest();
+        CustomerRequest clientToUpdateEx = new CustomerRequest();
         clientToUpdateEx.setId(13);
         clientToUpdateEx.setName("New Client Updated");
         clientToUpdateEx.setAddress("Str. Stonehange");
         clientToUpdateEx.setDocumentNumber("pãoDeBatata");
 
         Assertions.assertThrows(BusinessException.class, () -> {
-            clientService.updateClient(clientToUpdateEx);
+            customerService.updateCustomer(clientToUpdateEx);
         });
 
     }
@@ -96,15 +96,15 @@ class ClientServiceTest {
 
     @Test
     void searchClientById() {
-        Optional<Client> findClientById = clientRepository.findById(1);
+        Optional<Customer> findClientById = customerRepository.findById(1);
         Assertions.assertEquals("968574321", findClientById.get().getDocumentNumber());
     }
 
     @Test
     void deleteClient() {
-        clientService.deleteClient(2);
-        Optional<Client> clientDeleted = clientRepository.findById(2);
-        boolean canDelete = clientDeleted.isEmpty();
+        customerService.deleteCustomer(2);
+        Optional<Customer> customerDeleted = customerRepository.findById(2);
+        boolean canDelete = customerDeleted.isEmpty();
         Assertions.assertTrue(canDelete);
     }
 

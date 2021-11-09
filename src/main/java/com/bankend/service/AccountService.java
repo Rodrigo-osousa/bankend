@@ -2,10 +2,10 @@ package com.bankend.service;
 
 import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Account;
-import com.bankend.model.entity.Client;
+import com.bankend.model.entity.Customer;
 import com.bankend.model.request.AccountRequest;
 import com.bankend.repository.AccountRepository;
-import com.bankend.repository.ClientRepository;
+import com.bankend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +23,13 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private CustomerRepository customerRepository;
 
 
     public AccountRequest createAccount(AccountRequest accountRequest) throws BusinessException {
 
         logger.info("createAccount: " + accountRequest.toString());
-        Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
+        Optional<Customer> client = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
 
         if (client.isEmpty()){
             logger.info("Client not exist");
@@ -51,7 +51,7 @@ public class AccountService {
 
     public AccountRequest updateAccount(AccountRequest accountRequest) throws BusinessException {
         Optional<Account> findAccount = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
-        Optional<Client> client = clientRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
+        Optional<Customer> client = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
         if (findAccount.isEmpty()){
             logger.info("Account or Client not exist");
             throw new BusinessException("Account or Client not exist");

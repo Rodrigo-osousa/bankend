@@ -3,9 +3,9 @@ package com.bankend.service;
 import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Account;
 import com.bankend.model.request.AccountRequest;
-import com.bankend.model.request.ClientRequest;
+import com.bankend.model.request.CustomerRequest;
 import com.bankend.repository.AccountRepository;
-import com.bankend.repository.ClientRepository;
+import com.bankend.repository.CustomerRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,23 +29,23 @@ class AccountServiceTest {
     private AccountService accountService;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    private ClientService clientService;
+    private CustomerService customerService;
 
 
 
     @BeforeAll
     void setUp() throws Exception {
-        ClientRequest clientRequest = new ClientRequest("New Client 0", "Str. BNH", "000000000");
-        clientService.createClient(clientRequest);
+        CustomerRequest customerRequest = new CustomerRequest("New Client 0", "Str. BNH", "000000000");
+        customerService.createCustomer(customerRequest);
 
         AccountRequest accountRequest = new AccountRequest("00000", 15, 100.00, 100.00, true, "000000000");
         accountService.createAccount(accountRequest);
 
-        ClientRequest clientRequest2 = new ClientRequest("New Client", "Str. BNH", "999999999");
-        clientService.createClient(clientRequest2);
+        CustomerRequest customerRequest2 = new CustomerRequest("New Client", "Str. BNH", "999999999");
+        customerService.createCustomer(customerRequest2);
 
         AccountRequest accountRequest2 = new AccountRequest("00009", 15, 100.00, 100.00, true, "999999999");
         accountService.createAccount(accountRequest2);
@@ -58,8 +58,8 @@ class AccountServiceTest {
     @Test
     void createAccount() throws Exception {
 
-        ClientRequest clientRequest = new ClientRequest("New Client", "Str. BNH", "111111111");
-        clientService.createClient(clientRequest);
+        CustomerRequest customerRequest = new CustomerRequest("New Client", "Str. BNH", "111111111");
+        customerService.createCustomer(customerRequest);
 
         AccountRequest accountRequest = new AccountRequest("00001", 15, 100.00, 100.00, true, "111111111");
         accountService.createAccount(accountRequest);
@@ -105,8 +105,8 @@ class AccountServiceTest {
 
     @Test
     void createAccountException() throws BusinessException {
-        ClientRequest clientRequest = new ClientRequest("New Client", "Str. BNH", "111111112");
-        clientService.createClient(clientRequest);
+        CustomerRequest customerRequest = new CustomerRequest("New Client", "Str. BNH", "111111112");
+        customerService.createCustomer(customerRequest);
 
         AccountRequest accountRequest = new AccountRequest("00001", 15, 100.00, 100.00, true, "111111113");
 

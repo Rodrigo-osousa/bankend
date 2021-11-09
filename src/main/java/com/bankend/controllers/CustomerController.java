@@ -1,9 +1,9 @@
 package com.bankend.controllers;
 
 import com.bankend.exception.BusinessException;
-import com.bankend.model.entity.Client;
-import com.bankend.model.request.ClientRequest;
-import com.bankend.service.ClientService;
+import com.bankend.model.entity.Customer;
+import com.bankend.model.request.CustomerRequest;
+import com.bankend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +15,16 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/client")
-public class ClientController {
+@RequestMapping("/customer")
+public class CustomerController {
     @Autowired
-    ClientService clientService;
+    CustomerService customerService;
 
     @Validated
     @PostMapping("/new")
-    public ResponseEntity<String> createClient(@Valid @RequestBody ClientRequest clientRequest) throws BusinessException {
+    public ResponseEntity<String> createCustomer(@Valid @RequestBody CustomerRequest customerRequest) throws BusinessException {
         try {
-            clientService.createClient(clientRequest);
+            customerService.createCustomer(customerRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body("Success");
         } catch (BusinessException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
@@ -34,9 +34,9 @@ public class ClientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateClient(@Valid ClientRequest clientRequest) throws BusinessException {
+    public ResponseEntity<String> updateCustomer(@Valid CustomerRequest customerRequest) throws BusinessException {
         try {
-            clientService.updateClient(clientRequest);
+            customerService.updateCustomer(customerRequest);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Updated");
         } catch (BusinessException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
@@ -46,19 +46,19 @@ public class ClientController {
     }
 
     @GetMapping("/list")
-    public Iterable<Client> searchClient() {
-        return clientService.searchClient();
+    public Iterable<Customer> searchCustomer() {
+        return customerService.searchCustomer();
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> searchClientById(@PathVariable int id) throws Exception {
-        return clientService.searchClientById(id);
+    public Optional<Customer> searchCustomerById(@PathVariable int id) throws Exception {
+        return customerService.searchCustomerById(id);
     }
 
 
     @DeleteMapping(path = "/{id}")
-    public void deleteClient(@PathVariable int id) {
-        clientService.deleteClient(id);
+    public void deleteCustomer(@PathVariable int id) {
+        customerService.deleteCustomer(id);
     }
 
 }

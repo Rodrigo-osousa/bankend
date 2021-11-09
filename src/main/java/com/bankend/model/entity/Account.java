@@ -21,20 +21,20 @@ public class Account {
     private Boolean inactive;
 
     @OneToOne
-    private Client client;
+    private Customer customer;
 
     public Account(){
 
     }
 
-    public Account(int id,String accountNumber, int agency, Double balance, Double credit, Boolean inactive, Client client) {
+    public Account(int id,String accountNumber, int agency, Double balance, Double credit, Boolean inactive, Customer customer) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.agency = agency;
         this.balance = balance;
         this.credit = credit;
         this.inactive = inactive;
-        this.client = client;
+        this.customer = customer;
     }
 
     public int getId() {
@@ -77,12 +77,12 @@ public class Account {
         this.inactive = inactive;
     }
 
-    public Client getClient() {
-        return client;
+    public Customer getClient() {
+        return customer;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient(Customer customer) {
+        this.customer = customer;
     }
 
     public String getAccountNumber() { return accountNumber; }
@@ -99,7 +99,7 @@ public class Account {
                 ", balance=" + balance +
                 ", credit=" + credit +
                 ", inactive=" + inactive +
-                ", client=" + client +
+                ", client=" + customer +
                 '}';
     }
 }
