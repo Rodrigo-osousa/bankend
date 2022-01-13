@@ -4,6 +4,7 @@ import com.bankend.exception.BusinessException;
 import com.bankend.model.entity.Customer;
 import com.bankend.model.request.CustomerRequest;
 import com.bankend.service.CustomerService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
+@Api(value = "Customer")
+@CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
     CustomerService customerService;

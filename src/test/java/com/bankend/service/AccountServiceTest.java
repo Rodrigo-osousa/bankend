@@ -19,7 +19,6 @@ import java.util.Optional;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AccountServiceTest {
     @Autowired

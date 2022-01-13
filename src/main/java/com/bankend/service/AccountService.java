@@ -29,11 +29,11 @@ public class AccountService {
     public AccountRequest createAccount(AccountRequest accountRequest) throws BusinessException {
 
         logger.info("createAccount: " + accountRequest.toString());
-        Optional<Customer> client = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
+        Optional<Customer> customer = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
 
-        if (client.isEmpty()){
-            logger.info("Client not exist");
-            throw new BusinessException("Client not exist");
+        if (customer.isEmpty()){
+            logger.info("Customer not exist");
+            throw new BusinessException("Customer not exist");
         }
 
         Account account = new Account();
@@ -42,7 +42,7 @@ public class AccountService {
         account.setBalance(accountRequest.getBalance());
         account.setCredit(accountRequest.getCredit());
         account.setInactive(accountRequest.getInactive());
-        account.setClient(client.get());
+        account.setClient(customer.get());
 
         accountRepository.save(account);
         return accountRequest;
@@ -51,10 +51,10 @@ public class AccountService {
 
     public AccountRequest updateAccount(AccountRequest accountRequest) throws BusinessException {
         Optional<Account> findAccount = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
-        Optional<Customer> client = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
+        Optional<Customer> customer = customerRepository.findByDocumentNumber(accountRequest.getDocumentNumber());
         if (findAccount.isEmpty()){
-            logger.info("Account or Client not exist");
-            throw new BusinessException("Account or Client not exist");
+            logger.info("Account or Customer not exist");
+            throw new BusinessException("Account or Customer not exist");
         }
 
         Account account = new Account();
@@ -64,7 +64,7 @@ public class AccountService {
         account.setBalance(accountRequest.getBalance());
         account.setCredit(accountRequest.getCredit());
         account.setInactive(accountRequest.getInactive());
-        account.setClient(client.get());
+        account.setClient(customer.get());
 
         accountRepository.save(account);
         return accountRequest;

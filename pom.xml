@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bankend</groupId>
-	<artifactId>bankEnd</artifactId>
+	<artifactId>bankend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bankEnd</name>
+	<name>bankend</name>
 	<description>A bank structure to study</description>
 	<properties>
 		<java.version>11</java.version>
@@ -102,6 +102,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>bankend</finalName>
 	</build>
 
 </project>

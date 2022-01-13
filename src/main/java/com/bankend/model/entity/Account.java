@@ -94,12 +94,12 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", accountNumber=" + accountNumber +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", agency=" + agency +
                 ", balance=" + balance +
                 ", credit=" + credit +
                 ", inactive=" + inactive +
-                ", client=" + customer +
+                ", customer=" + customer +
                 '}';
     }
 }

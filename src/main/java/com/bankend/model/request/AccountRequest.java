@@ -15,7 +15,7 @@ public class AccountRequest {
     private int agency;
 
     @NotNull(message = "Balance cannot be less than 0")
-    @Min(0)
+    @Min(value = 0)
     private Double balance;
 
     @NotNull(message = "Credit cannot be null")
