@@ -93,7 +93,7 @@ Nele podemos cadastrar um cliente e uma conta, onde são salvas no banco de dado
  
  ## Conclusão
  
- Esta aplicação tem apenas a função de realizar cadastros de clientes e contas, a aplicação [BankEndDebits](https://github.com/Rodrigo-osousa/bankEndDebits) tem acesso aos dados dos cliente e contas cadastradas a fim de realizar trasações finaceiras.
+ Esta aplicação tem apenas a função de realizar cadastro de clientes e contas, a aplicação [BankEndDebits](https://github.com/Rodrigo-osousa/bankEndDebits) tem acesso aos dados dos clientes e das contas e realizar realizar transações finaceiras.
   
   
   
